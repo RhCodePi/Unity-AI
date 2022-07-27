@@ -1,2 +1,4 @@
 # Unity-AI
- This project include AI system in Unity
+ This project include; basic AI system in Unity.
+
+ Unity Editor Version 2019.4.35f1.
