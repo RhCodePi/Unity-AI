@@ -7,35 +7,81 @@ namespace rhcodepi
 {
     public class AIChase : MonoBehaviour
     {
-        public enum AIState{PATROL= 0, CHASE =1 , ATTACK = 2};
+        public enum AIState { PATROL = 0, CHASE = 1, ATTACK = 2 };
         private NavMeshAgent enemyAgent;
-        //[SerializeField] private Transform player_Tr = null;
+        [SerializeField] private GameObject player_Tr = null;
         [SerializeField] private GameObject[] waypoints;
         private GameObject current_Waypoint;
         public AIState currentState = AIState.PATROL;
         private float distance = 2f;
 
-        private void Awake() {
-            enemyAgent = GetComponent<NavMeshAgent>();
-            current_Waypoint  = waypoints[Random.Range(0, waypoints.Length)];
-        }
-
-        private void Update() {
-            StartCoroutine(StratPatrol());
-        }
-
-        IEnumerator StratPatrol()
+        private void Awake()
         {
-            enemyAgent.SetDestination(current_Waypoint.transform.position);
+            enemyAgent = GetComponent<NavMeshAgent>();
+            current_Waypoint = waypoints[Random.Range(0, waypoints.Length)];
+        }
 
-            if(Vector3.Distance(transform.position, current_Waypoint.transform.position) < distance)
+        private void Start()
+        {
+            StateControl(AIState.PATROL);
+        }
+
+        public void StateControl(AIState newState)
+        {
+            StopAllCoroutines();
+            currentState = newState;
+            switch (newState)
             {
-                current_Waypoint = waypoints[Random.Range(0, waypoints.Length)];
+                case AIState.PATROL:
+                    StartCoroutine(PatrolState());
+                    break;
+                case AIState.CHASE:
+                    StartCoroutine(ChaseState());
+                    break;
+                case AIState.ATTACK:
+                    StartCoroutine(AttackState());
+                    break;
+
+            }
+        }
+
+
+        IEnumerator PatrolState()
+        {
+            while (currentState == AIState.PATROL)
+            {
+                enemyAgent.SetDestination(current_Waypoint.transform.position);
+
+                if (Vector3.Distance(transform.position, current_Waypoint.transform.position) < distance)
+                {
+                    current_Waypoint = waypoints[Random.Range(0, waypoints.Length)];
+                }
+
+                yield return null;
             }
 
+        }
+
+        IEnumerator ChaseState()
+        {
+            while (currentState == AIState.CHASE)
+            {
+                enemyAgent.SetDestination(player_Tr.transform.position);
+                Debug.Log("TRUE");
+                yield return null;
+            }
+
+        }
+
+        IEnumerator AttackState()
+        {
             yield return null;
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player")) StateControl(AIState.CHASE);
+        }
     }
 }
 

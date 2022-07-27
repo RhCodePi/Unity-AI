@@ -737,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1227540386
 Transform:
   m_ObjectHideFlags: 0
@@ -1504,12 +1504,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1794989930 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4448068258976056, guid: 2e62f5703e5f8d2488a5e1bc8433be41,
-    type: 3}
-  m_PrefabInstance: {fileID: 1575857719}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1831774042
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,6 +1727,12 @@ Transform:
   m_Father: {fileID: 548821348}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2101438978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1743903104223250, guid: 2e62f5703e5f8d2488a5e1bc8433be41,
+    type: 3}
+  m_PrefabInstance: {fileID: 1575857719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &26997431321895042 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2099742700838179999, guid: 4243dd760b831174ebcfd0cbbcd6b495,
@@ -1785,11 +1785,11 @@ PrefabInstance:
         type: 3}
       propertyPath: player_Tr
       value: 
-      objectReference: {fileID: 1794989930}
+      objectReference: {fileID: 2101438978}
     - target: {fileID: 2099742700838179998, guid: 4243dd760b831174ebcfd0cbbcd6b495,
         type: 3}
       propertyPath: waypoints.Array.size
-      value: 13
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2099742700838179998, guid: 4243dd760b831174ebcfd0cbbcd6b495,
         type: 3}
