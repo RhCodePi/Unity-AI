@@ -13,7 +13,7 @@ namespace rhcodepi
         [SerializeField] private GameObject[] waypoints;
         private GameObject current_Waypoint;
         public AIState currentState = AIState.PATROL;
-        private float distance = 2f;
+        private float distance = 2f, attackDistance = 1.5f;
 
         private void Awake()
         {
@@ -64,10 +64,15 @@ namespace rhcodepi
 
         IEnumerator ChaseState()
         {
+
             while (currentState == AIState.CHASE)
             {
+                if(Vector3.Distance(transform.position, player_Tr.transform.position) < attackDistance)
+                {
+                    StateControl(AIState.ATTACK);
+                }
                 enemyAgent.SetDestination(player_Tr.transform.position);
-                Debug.Log("TRUE");
+
                 yield return null;
             }
 
@@ -75,6 +80,19 @@ namespace rhcodepi
 
         IEnumerator AttackState()
         {
+
+            while (currentState == AIState.ATTACK)
+            {
+                if(Vector3.Distance(transform.position, player_Tr.transform.position) > attackDistance)
+                {
+                    StateControl(AIState.CHASE);
+                }
+                print("ATTACK!");
+                enemyAgent.SetDestination(player_Tr.transform.position);
+
+                yield return null;
+            }
+
             yield return null;
         }
 
